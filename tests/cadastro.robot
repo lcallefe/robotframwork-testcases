@@ -1,23 +1,42 @@
 *** Settings   ***
 Documentation   Cadastro de jogos
-Library     SeleniumLibrary
+Resource        resources/keywords.robot
+Suite Setup     Inicia Sessao
+Suite Teardown  Encerra Sessao
+
+
 
 *** Test Cases  ***
 Cadastrar novo jogo
-    Log To Console      "Olar"
-    Open Browser        http://localhost:3000   Chrome
-    Set Browser Implicit Wait    5
-    Click Element       link:Novo
-    Input Text          id:produto_nome         Call of Duty
-    Input Text          id:produto_descricao    Jogo de Primeira Pessoa 
-    Input Text          id:produto_preco        R$ 99.90
-    Input Text          id:produto_quantidade   10
-   
-    Click Element       xpath://input[@value='Criar Produto']
-   
-    Element Should Contain      css:div[role=alert]     Produto cadastrado com sucesso
-    Element Should Contain      css:table tbody         Call of Duty
 
+    Dado que acesso o portal de cadastro de jogos
+    Quando eu faço o cadastro de um novo jogo
+    ...     Duke Nukem 3D       FPS     20.00       10    
+    Então vejo a mensagem de sucesso "Produto cadastrado com sucesso"
+    E vejo este novo jogo na lista
+   
+
+Nome deve ser obrigatório
+    Dado que acesso o portal de cadastro de jogos
+    Quando eu faço o cadastro de um novo jogo
+    ...     ${EMPTY}     FPS     20.00       10   
+    Então devo ver a mensagem de alerta "Nome não pode ficar em branco"
+
+Preço deve ser obrigatório
+    Dado que acesso o portal de cadastro de jogos
+    Quando eu faço o cadastro de um novo jogo
+    ...     Duke Nukem 3D       FPS     ${EMPTY}      10   
+    Então devo ver a mensagem de alerta "Preco não pode ficar em branco"
+
+Quantidade deve ser obrigatório
+    Dado que acesso o portal de cadastro de jogos
+    Quando eu faço o cadastro de um novo jogo
+    ...     Duke Nukem 3D       FPS     20.00        ${EMPTY}   
+    Então devo ver a mensagem de alerta "Quantidade não pode ficar em branco"
+
+
+    
+ 
 
 
 

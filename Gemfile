@@ -6,6 +6,7 @@ gem 'rails', '~> 5.1.4'
 gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 gem 'turbolinks', '~> 5'
 gem 'tzinfo-data'
+gem 'wdm', '>= 0.1.0'
 
 gem 'rails-i18n', '~> 5.0.0'
 
